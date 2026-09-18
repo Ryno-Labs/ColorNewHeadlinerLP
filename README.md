@@ -1,10 +1,10 @@
-# Color New Headliner Landing Page — Simple V3
+# Color New Headliner Landing Page — Simple V4
 
-Final CTA updated to:
-
-Make your car’s interior look new again.
+Header refinement:
+- Replaced unfinished text call link with a professional rounded phone pill.
+- Shows phone number directly.
+- Neutral styling so it stays secondary to the red text-quote CTA.
+- Optimized spacing for smaller phones.
 
 GitHub Pages:
-1. Upload `index.html` and `.nojekyll` to the repo root.
-2. Commit changes.
-3. GitHub Pages will republish automatically.
+Upload `index.html` and `.nojekyll` to the repo root and commit.
