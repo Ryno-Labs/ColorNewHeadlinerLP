@@ -284,7 +284,7 @@
               <a class="btn btn-primary hero-cta" href="#quote">GET MY QUOTE</a>
               <a class="btn btn-secondary track-text" href="sms:+15129311752">TEXT US</a>
             </div>
-            <div class="micro"><strong>No photos. No VIN. No email. No form submission.</strong> Answer a few questions, then text the copied info straight to us.</div>
+            <div class="micro"><strong>No photos. No VIN. No email. No form submission.</strong> Answer a few questions and send the pre-written text straight to us.</div>
 
             <div class="trust-inline" aria-label="Customer trust">
               <span class="stars" aria-label="4.9 out of 5 stars">★★★★★</span>
@@ -357,8 +357,8 @@
               <input id="name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
             </fieldset>
 
-            <a class="btn btn-primary btn-wide" id="submitBtn" href="sms:+15129311752">COPY INFO & OPEN TEXT</a>
-            <p class="micro privacy-note"><strong>Your quote info will be copied.</strong> Messages will open to Color New. Tap <strong>Paste</strong>, then <strong>Send</strong>.</p>
+            <a class="btn btn-primary btn-wide" id="submitBtn" href="sms:+15129311752">TEXT MY INFO FOR A QUOTE</a>
+            <p class="micro privacy-note">Tap the button and Messages will open with your vehicle info already filled in. Review it and tap <strong>Send</strong>.</p>
           </div>
         </div>
       </div>
@@ -496,23 +496,33 @@
 
   <script>
     (() => {
+      const QUOTE_TEXT_NUMBER = "+15129311752";
+
       const qs = new URLSearchParams(window.location.search);
       const byId = (id) => document.getElementById(id);
       const textLink = byId("submitBtn");
 
       const source = qs.get("src") || "DIRECT";
-      byId("source_code").value = source;
-      byId("landing_page").value = window.location.pathname || "/";
-      byId("utm_source").value = qs.get("utm_source") || "";
-      byId("utm_medium").value = qs.get("utm_medium") || "";
-      byId("utm_campaign").value = qs.get("utm_campaign") || "";
+
+      const hidden = {
+        source_code: source,
+        landing_page: window.location.pathname || "/",
+        utm_source: qs.get("utm_source") || "",
+        utm_medium: qs.get("utm_medium") || "",
+        utm_campaign: qs.get("utm_campaign") || ""
+      };
+
+      Object.entries(hidden).forEach(([id, value]) => {
+        const el = byId(id);
+        if (el) el.value = value;
+      });
 
       function selected(name) {
         const el = document.querySelector(`input[name="${name}"]:checked`);
         return el ? el.value : "";
       }
 
-      function showFieldError(el) {
+      function focusField(el) {
         if (!el) return;
         el.focus();
         el.style.borderColor = "#ed1c24";
@@ -524,22 +534,35 @@
         const model = byId("model");
         const name = byId("name");
 
-        if (!year.value.trim()) { showFieldError(year); return false; }
-        if (!model.value.trim()) { showFieldError(model); return false; }
+        if (!year.value.trim()) {
+          focusField(year);
+          return false;
+        }
+
+        if (!model.value.trim()) {
+          focusField(model);
+          return false;
+        }
 
         if (!selected("sunroof")) {
-          document.querySelector('input[name="sunroof"]').closest("fieldset")
+          document.querySelector('input[name="sunroof"]')
+            .closest("fieldset")
             .scrollIntoView({ behavior: "smooth", block: "center" });
           return false;
         }
 
         if (!selected("reason")) {
-          document.querySelector('input[name="reason"]').closest("fieldset")
+          document.querySelector('input[name="reason"]')
+            .closest("fieldset")
             .scrollIntoView({ behavior: "smooth", block: "center" });
           return false;
         }
 
-        if (!name.value.trim()) { showFieldError(name); return false; }
+        if (!name.value.trim()) {
+          focusField(name);
+          return false;
+        }
+
         return true;
       }
 
@@ -554,57 +577,39 @@
           `Source: ${source}`,
           "",
           "Please send me a quote."
-        ].join("
-");
+        ].join("\n");
       }
 
-      function copySynchronously(text) {
-        let copied = false;
-        const ta = document.createElement("textarea");
-        ta.value = text;
-        ta.setAttribute("readonly", "");
-        ta.style.position = "fixed";
-        ta.style.left = "-9999px";
-        ta.style.top = "0";
-        ta.style.opacity = "0.01";
-        document.body.appendChild(ta);
-        ta.focus();
-        ta.select();
-        ta.setSelectionRange(0, ta.value.length);
-        try {
-          copied = document.execCommand("copy");
-        } catch (e) {}
-        document.body.removeChild(ta);
+      function buildSmsUrl() {
+        const body = encodeURIComponent(makeMessage());
 
-        // Also try the modern API. We do not await it because the native
-        // sms: link must remain a direct result of the customer's tap.
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(text).catch(() => {});
-        }
-        return copied;
+        // iPhone/iPad Safari commonly uses &body=.
+        const isIOS =
+          /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+          (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+        return isIOS
+          ? `sms:${QUOTE_TEXT_NUMBER}&body=${body}`
+          : `sms:${QUOTE_TEXT_NUMBER}?body=${body}`;
       }
 
-      function prepareText(e) {
+      // Build the href before the actual click navigation happens.
+      textLink.addEventListener("pointerdown", (event) => {
         if (!validate()) {
-          e.preventDefault();
-          return false;
+          event.preventDefault();
+          return;
         }
-
-        copySynchronously(makeMessage());
-        return true;
-      }
-
-      // pointerdown prepares the clipboard before the native SMS anchor fires.
-      textLink.addEventListener("pointerdown", (e) => {
-        if (!validate()) return;
-        copySynchronously(makeMessage());
+        textLink.href = buildSmsUrl();
       });
 
-      // click is also a fallback for keyboard/accessibility activation.
-      textLink.addEventListener("click", (e) => {
-        if (!prepareText(e)) return;
-        // Do NOT preventDefault here. The real <a href="sms:..."> handles
-        // opening Messages natively on iPhone.
+      textLink.addEventListener("click", (event) => {
+        if (!validate()) {
+          event.preventDefault();
+          return;
+        }
+
+        textLink.href = buildSmsUrl();
+        // No preventDefault here. The browser follows the native sms: link.
       });
     })();
   </script>
