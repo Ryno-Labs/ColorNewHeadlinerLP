@@ -1,14 +1,11 @@
-# Color New Headliner Landing Page — Simple V5
+# Color New Headliner Landing Page — Simple V6
 
-Every red SMS CTA now opens Messages with this prewritten starter:
+Every SMS CTA now opens Messages with only:
 
-Hi, I’d love a headliner quote.
-Vehicle: ________
-Sunroof: Yes / No
+Hi! I would love a headliner quote.
 
-The customer fills in the blank and taps Send.
+The customer only needs to tap Send.
+You reply with the vehicle questions.
 
 GitHub Pages:
 Upload `index.html` and `.nojekyll` to the repo root and commit.
-
-Test on the actual iPhone/browser you expect customers to use.
