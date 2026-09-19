@@ -1,11 +1,6 @@
-# Color New Headliner Landing Page — Simple V6
+Color New headliner landing page — noindex,follow update.
 
-Every SMS CTA now opens Messages with only:
+Only the robots meta tag was changed from noindex,nofollow to noindex,follow.
 
-Hi! I would love a headliner quote.
-
-The customer only needs to tap Send.
-You reply with the vehicle questions.
-
-GitHub Pages:
-Upload `index.html` and `.nojekyll` to the repo root and commit.
+Upload index.html and .nojekyll to your GitHub Pages repository.
+Do not add a robots.txt rule blocking crawling of the campaign page.
