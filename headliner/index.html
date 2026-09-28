@@ -390,11 +390,13 @@
         <p class="lead">A few quick details are enough to get started. Your request is managed by Seek and Scale for Color New Upholstery.</p>
 
         <form class="quote-form" action="https://formsubmit.co/ryanclark.autointeriors@gmail.com" method="POST">
-          <input type="hidden" name="_subject" value="New Headliner Quote Request">
+          <input type="hidden" name="_subject" id="email-subject" value="New Headliner Quote Request">
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_next" value="https://getupholsteryquotes.com/headliner/thanks.html">
           <input type="hidden" name="_url" value="https://getupholsteryquotes.com/headliner/">
           <input type="hidden" name="Campaign" value="Headliner">
+          <input type="hidden" name="Lead ID" id="lead-id" value="">
+          <input type="hidden" name="Submitted At" id="submitted-at" value="">
           <input type="hidden" name="Service Provider" value="Color New Upholstery">
           <input type="hidden" name="Source Code" id="source-code" value="Direct">
           <input type="hidden" name="SMS Consent" id="sms-consent-value" value="No">
@@ -605,6 +607,33 @@
       if (consentCheck && consentValue) {
         consentCheck.addEventListener('change', function () {
           consentValue.value = consentCheck.checked ? 'Yes' : 'No';
+        });
+      }
+
+      var form = document.querySelector('.quote-form');
+      if (form) {
+        form.addEventListener('submit', function () {
+          var now = new Date();
+          var leadId = now.getTime().toString();
+          var submittedAt = now.toISOString();
+
+          var nameField = document.getElementById('customer-name');
+          var yearField = document.getElementById('vehicle-year');
+          var modelField = document.getElementById('vehicle-model');
+          var subjectField = document.getElementById('email-subject');
+          var leadIdField = document.getElementById('lead-id');
+          var submittedAtField = document.getElementById('submitted-at');
+
+          var customerName = nameField ? nameField.value.trim() : 'Customer';
+          var vehicleYear = yearField ? yearField.value.trim() : '';
+          var vehicleModel = modelField ? modelField.value.trim() : '';
+          var vehicle = (vehicleYear + ' ' + vehicleModel).trim();
+
+          if (subjectField) {
+            subjectField.value = 'HEADLINER LEAD | ' + customerName + ' | ' + vehicle + ' | ' + leadId;
+          }
+          if (leadIdField) leadIdField.value = leadId;
+          if (submittedAtField) submittedAtField.value = submittedAt;
         });
       }
     })();
