@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex,follow">
   <meta name="theme-color" content="#ed1c24">
   <title>Sagging Headliner | Color New Upholstery | Headliner Quote</title>
-  <meta name="description" content="Sagging headliner? Text for a quote on headliner replacement. Service by Color New Upholstery in Georgetown, Texas.">
+  <meta name="description" content="Sagging headliner? Request a quote for headliner replacement from Color New Upholstery in Georgetown, Texas.">
   <style>
     :root {
       --red:#c91420; /* darker Color New red for readable white text */
@@ -286,6 +286,59 @@
       .sticky{display:none}
       footer{padding-bottom:28px}
     }
+
+    .quote-form-section{padding:52px 0;background:#fff}
+    .quote-form-wrap{max-width:760px}
+    .quote-form{
+      margin-top:24px;
+      padding:24px;
+      border:1px solid var(--line);
+      border-radius:22px;
+      background:var(--soft);
+    }
+    .form-grid{display:grid;gap:18px}
+    .field{display:grid;gap:7px}
+    .field label,.group-label{font-weight:900;font-size:.98rem}
+    .field input{
+      width:100%;
+      min-height:52px;
+      border:1px solid #cfcfcf;
+      border-radius:12px;
+      padding:12px 14px;
+      font:inherit;
+      color:var(--ink);
+      background:#fff;
+    }
+    .field input:focus{outline:3px solid rgba(201,20,32,.18);border-color:var(--red)}
+    .choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .choice-grid.four{grid-template-columns:repeat(4,1fr)}
+    .choice{position:relative}
+    .choice input{position:absolute;opacity:0;pointer-events:none}
+    .choice label{
+      display:flex;
+      min-height:48px;
+      align-items:center;
+      justify-content:center;
+      padding:10px;
+      border:1px solid #cfcfcf;
+      border-radius:12px;
+      background:#fff;
+      font-weight:850;
+      text-align:center;
+      cursor:pointer;
+    }
+    .choice input:checked + label{border-color:var(--red);box-shadow:inset 0 0 0 2px var(--red);color:var(--red)}
+    .consent-row{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start}
+    .consent-row input{width:20px;height:20px;margin-top:2px}
+    .consent-copy{font-size:.82rem;line-height:1.5;color:#555}
+    .form-note{font-size:.82rem;line-height:1.5;color:#5b5d61;margin:0}
+    .quote-form .btn{width:100%;border:0;cursor:pointer;font:inherit}
+    .honeypot{position:absolute;left:-9999px;opacity:0}
+    @media(max-width:560px){
+      .quote-form{padding:18px}
+      .choice-grid,.choice-grid.four{grid-template-columns:1fr 1fr}
+    }
+
   </style>
 </head>
 <body>
@@ -305,21 +358,21 @@
             <h1>Sagging Headliner?</h1>
             <p class="lead">
               Fabric falling down or hitting your head? Color New replaces sagging, stained, and damaged headliners.
-              Tap below to start a text. We’ll ask 4 quick questions and send you a price.
+              Tap below and answer a few quick questions about your vehicle to request a quote.
             </p>
 
             <div class="hero-actions">
-              <a class="btn" href="sms:+15129311752&body=Hi%21%20I%20would%20love%20a%20headliner%20quote.">TEXT FOR A HEADLINER QUOTE</a>
+              <a class="btn" href="#quote-form">GET MY HEADLINER QUOTE</a>
               <a class="btn btn-secondary" href="tel:+15129311752">CALL INSTEAD</a>
             </div>
 
-            <div class="micro">No form or email needed to start. Your phone opens a text to Ryan, who handles Color New quotes. You tap Send.</div>
+            <div class="micro">No phone call needed to request a quote. Fill out the short form and Color New can follow up about your vehicle.</div>
 
             <div class="trust-row">
               <span class="stars" aria-label="Google rating 4.9 out of 5">★★★★★</span>
               <span>4.9 on Google</span>
               <span>158 reviews</span>
-              <span>Same-day service may be available; ask when you text</span>
+              <span>Same-day service may be available; ask when Color New follows up</span>
             </div>
           </div>
 
@@ -330,6 +383,80 @@
         </div>
       </div>
     </section>
+
+
+    <section class="quote-form-section" id="quote-form" aria-labelledby="quote-form-title">
+      <div class="wrap quote-form-wrap">
+        <div class="eyebrow">Get your headliner quote</div>
+        <h2 id="quote-form-title">Tell us about your vehicle.</h2>
+        <p class="lead">A few quick details are enough to get started. Your request is managed by Seek and Scale for Color New Upholstery.</p>
+
+        <form class="quote-form" action="https://formsubmit.co/ryanclark.autointeriors@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="New Headliner Quote Request">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" value="https://getupholsteryquotes.com/headliner/thanks.html">
+          <input type="hidden" name="_url" value="https://getupholsteryquotes.com/headliner/">
+          <input type="hidden" name="Campaign" value="Headliner">
+          <input type="hidden" name="Service Provider" value="Color New Upholstery">
+          <input type="hidden" name="Source Code" id="source-code" value="Direct">
+          <input type="hidden" name="SMS Consent" id="sms-consent-value" value="No">
+          <input class="honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off">
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="vehicle-year">What year is your vehicle?</label>
+              <input id="vehicle-year" name="Vehicle Year" type="text" inputmode="numeric" autocomplete="off" placeholder="2015" maxlength="4" required>
+            </div>
+
+            <div class="field">
+              <label for="vehicle-model">What make and model?</label>
+              <input id="vehicle-model" name="Make and Model" type="text" autocomplete="off" placeholder="Honda Accord" maxlength="80" required>
+            </div>
+
+            <fieldset style="border:0;padding:0;margin:0">
+              <legend class="group-label" style="margin-bottom:7px">Does it have a sunroof?</legend>
+              <div class="choice-grid">
+                <div class="choice"><input id="sunroof-yes" type="radio" name="Sunroof" value="Yes" required><label for="sunroof-yes">Yes</label></div>
+                <div class="choice"><input id="sunroof-no" type="radio" name="Sunroof" value="No"><label for="sunroof-no">No</label></div>
+                <div class="choice"><input id="sunroof-unsure" type="radio" name="Sunroof" value="Not sure"><label for="sunroof-unsure">Not sure</label></div>
+              </div>
+            </fieldset>
+
+            <fieldset style="border:0;padding:0;margin:0">
+              <legend class="group-label" style="margin-bottom:7px">Why are you replacing it?</legend>
+              <div class="choice-grid four">
+                <div class="choice"><input id="reason-sagging" type="radio" name="Reason" value="Sagging" required><label for="reason-sagging">Sagging</label></div>
+                <div class="choice"><input id="reason-damaged" type="radio" name="Reason" value="Damaged"><label for="reason-damaged">Damaged</label></div>
+                <div class="choice"><input id="reason-stained" type="radio" name="Reason" value="Stained"><label for="reason-stained">Stained</label></div>
+                <div class="choice"><input id="reason-other" type="radio" name="Reason" value="Other"><label for="reason-other">Other</label></div>
+              </div>
+            </fieldset>
+
+            <div class="field">
+              <label for="customer-name">What’s your name?</label>
+              <input id="customer-name" name="Customer Name" type="text" autocomplete="name" placeholder="Your name" maxlength="80" required>
+            </div>
+
+            <div class="field">
+              <label for="customer-phone">Best mobile number for your quote</label>
+              <input id="customer-phone" name="Mobile Phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(512) 555-0123" maxlength="24" required>
+            </div>
+
+            <div class="consent-row">
+              <input id="sms-consent-check" type="checkbox">
+              <label class="consent-copy" for="sms-consent-check">
+                I agree to receive text messages from Color New Upholstery about this quote request, including questions, pricing, and scheduling. Message frequency varies. Message and data rates may apply. Reply STOP to opt out. Consent to receive texts is not required to request a quote.
+              </label>
+            </div>
+
+            <p class="form-note">By submitting, you authorize Seek and Scale to provide this quote request and your contact information to Color New Upholstery so it can respond. See our <a href="privacy.html">Privacy &amp; Contact notice</a>.</p>
+
+            <button class="btn" type="submit">GET MY HEADLINER QUOTE</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
 
     <section class="soft">
       <div class="wrap">
@@ -368,7 +495,7 @@
         </div>
 
         <div style="margin-top:20px;max-width:520px">
-          <a class="btn" href="sms:+15129311752&body=Hi%21%20I%20would%20love%20a%20headliner%20quote.">TEXT FOR A HEADLINER QUOTE</a>
+          <a class="btn" href="#quote-form">GET MY HEADLINER QUOTE</a>
         </div>
       </div>
     </section>
@@ -393,8 +520,8 @@
 
         <div class="cta-box">
           <h3>Want to know what yours will cost?</h3>
-          <p>Tap below. We’ll ask your year, model, if it has a sunroof, and what is wrong.</p>
-          <a class="btn" href="sms:+15129311752&body=Hi%21%20I%20would%20love%20a%20headliner%20quote.">TEXT FOR A HEADLINER QUOTE</a>
+          <p>Tap below and tell us your year, model, if it has a sunroof, and what is wrong.</p>
+          <a class="btn" href="#quote-form">GET MY HEADLINER QUOTE</a>
         </div>
       </div>
     </section>
@@ -434,7 +561,7 @@
             <summary>How long does a headliner replacement take?</summary>
             <p>
               It depends on the car. A simple car can be quicker. A large vehicle or a car with a sunroof can take longer.
-              Same-day service may be available, but it depends on your car and the schedule. Text us your vehicle and we’ll tell you what to expect.
+              Same-day service may be available, but it depends on your car and the schedule. Send your vehicle details through the quote form and Color New can tell you what to expect.
             </p>
           </details>
         </div>
@@ -444,22 +571,22 @@
     <section class="final">
       <div class="wrap">
         <h2>Make your car’s interior look new again.</h2>
-        <p>Start a text. Answer 4 quick questions. Get your price.</p>
-        <a class="btn" href="sms:+15129311752&body=Hi%21%20I%20would%20love%20a%20headliner%20quote.">TEXT FOR A HEADLINER QUOTE</a>
+        <p>Answer a few quick questions and request your quote.</p>
+        <a class="btn" href="#quote-form">GET MY HEADLINER QUOTE</a>
       </div>
     </section>
   </main>
 
   <footer>
     <div class="wrap">
-      <p class="footer-identity">This quote page is run by Seek &amp; Scale for Color New Upholstery. Ryan answers the quote texts. Headliner service is performed by Color New Upholstery in Georgetown, Texas.</p>
-      <p class="footer-details"><a href="tel:+15129311752">Call or text 512-931-1752</a><span aria-hidden="true"> · </span><a href="privacy.html">Privacy &amp; contact</a></p>
+      <p class="footer-identity">This quote page is managed by Seek and Scale for Color New Upholstery. Headliner service is performed by Color New Upholstery in Georgetown, Texas.</p>
+      <p class="footer-details"><a href="tel:+15129311752">Call Color New: 512-931-1752</a><span aria-hidden="true"> · </span><a href="privacy.html">Privacy &amp; contact</a></p>
       <p class="footer-small">Getting a quote does not book an appointment. Price and timing are confirmed before you schedule.</p>
     </div>
   </footer>
 
   <div class="sticky">
-    <a class="btn" href="sms:+15129311752&body=Hi%21%20I%20would%20love%20a%20headliner%20quote.">TEXT FOR A HEADLINER QUOTE</a>
+    <a class="btn" href="#quote-form">GET MY HEADLINER QUOTE</a>
   </div>
 
   <!-- FAQ research basis:
@@ -467,5 +594,23 @@
        1A Auto: glue/pins may be temporary; old foam often needs removal.
        3M: headliner-specific adhesive is designed for automotive headliners.
   -->
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var src = params.get('src');
+      var sourceField = document.getElementById('source-code');
+      if (src && sourceField) sourceField.value = src;
+
+      var consentCheck = document.getElementById('sms-consent-check');
+      var consentValue = document.getElementById('sms-consent-value');
+      if (consentCheck && consentValue) {
+        consentCheck.addEventListener('change', function () {
+          consentValue.value = consentCheck.checked ? 'Yes' : 'No';
+        });
+      }
+    })();
+  </script>
+
 </body>
 </html>
